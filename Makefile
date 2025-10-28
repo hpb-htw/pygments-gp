@@ -1,19 +1,24 @@
 bootstrap:
 	python -m venv .venv
-	@echo "call source .venv/bin/activate to activate virtual environment"
+	@echo -e "run '\033[0;31msource .venv/bin/activate\033[0m' to activate virtual environment"
+	@echo -e "then run '\033[0;31mmake init\033[0m'"
 
 init:
-	pip install -e .
 	python -m pip install --upgrade build
+	python -m pip install hatch
+	python -m pip install -e .
+
+clean:
+	rm -rf dist
 
 clean-all:
-	rm -rf .venv
+	rm -rf .venv dist
 
 test:
-	python -m unittest discover -p "*_test.py"
+	hatch test
 
 build: init
-	python -m build
+	hatch build
 
 deploy: test build
-	python3 -m twine upload --repository testpypi dist/*
+	python -m twine upload --repository testpypi dist/*

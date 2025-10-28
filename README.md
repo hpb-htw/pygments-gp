@@ -2,7 +2,20 @@
 
 Ein Python Lernprojekt
 
-## HOWTO
+## Get started
+
+Run
+
+```shell
+make bootstrap
+```
+
+then follow instruction on terminal, read the Makefile for more details.
+
+
+## HOWTO `.venc`
+
+(Über .venv)
 
 ### Einstellung einer virtuellen Umgebung
 

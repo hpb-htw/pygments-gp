@@ -42,6 +42,9 @@ gp_lexer = "pygments_gp.parigp.PariGpLexer"
 [tool.hatch.version]
 path = "src/pygments_gp/__about__.py"
 
+[tool.hatch.envs.default]
+path = ".venv"
+
 [tool.hatch.envs.types]
 extra-dependencies = [
   "mypy>=1.0.0",
