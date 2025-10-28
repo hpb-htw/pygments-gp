@@ -1,5 +1,6 @@
-prepare:
+bootstrap:
 	python -m venv .venv
+	@echo "call source .venv/bin/activate to activate virtual environment"
 
 init:
 	pip install -e .

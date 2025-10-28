@@ -1,33 +1,69 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "pygments-gp"
-version = "0.0.1"
-authors = [
-  { name="Hong-Phuc Bui", email="noreply@htwsaar.de" },
-]
-description = "pygments PARI/GP"
+dynamic = ["version"]
+description = 'pygments PARI/GP'
 readme = "README.md"
-requires-python = ">=3.12"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Operating System :: OS Independent",
+requires-python = ">=3.8"
+license = "BSD-2-Clause"
+keywords = []
+authors = [
+  { name = "Hong-Phuc Bui", email = "hong-phuc.bui@htwsaar.de" },
 ]
-license = "MIT"
-license-files = ["LICEN[CS]E*"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
 dependencies = [
     "pygments>=2.19",
     "pytest>=8.4.2",
-    "tox>=4.32.0"
 ]
 
 [project.urls]
-Homepage = "https://github.com/hpb-htw/pygments-gp"
+Documentation = "https://github.com/hpb-htw/pygments-gp#readme"
 Issues = "https://github.com/hpb-htw/pygments-gp/issues"
+Source = "https://github.com/hpb-htw/pygments-gp"
 
-[build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+[project.entry-points."pygments.lexers"]
+pari_gp_lexer = "pygments_gp.parigp.PariGpLexer"
+gp_lexer = "pygments_gp.parigp.PariGpLexer"
 
-[tool.setuptools.packages.find]
-# All the following settings are optional:
-where = ["src"]
 
+[tool.hatch.version]
+path = "src/pygments_gp/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/pygments_gp tests}"
+
+[tool.coverage.run]
+source_pkgs = ["pygments_gp", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/pygments_gp/__about__.py",
+]
+
+[tool.coverage.paths]
+pygments_gp = ["src/pygments_gp", "*/pygments-gp/src/pygments_gp"]
+tests = ["tests", "*/pygments-gp/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
